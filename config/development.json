@@ -1,0 +1,29 @@
+{
+    "ENV": "development",
+    "HOST": "localhost",
+    "SERVER": {
+        "PORT": 7000
+    },
+    "TEST": {
+        "HOST": "http://localhost",
+        "PORT": 7001
+    },
+    "DB": {
+        "MSSQL": {
+            "HOST": "0.0.0.0",
+            "PORT": 1433,
+            "USER": "user",
+            "PASSWORD": "password",
+            "DATABASE": "database",
+            "CONNECTION_TIMEOUT": 20000,
+            "REQUEST_TIMEOUT": 30000,
+            "POOL": {
+                "MAX": 5,
+                "MIN": 1
+            },
+            "OPTIONS": {
+                "ENCRYPT": false
+            }
+        }
+    }
+}

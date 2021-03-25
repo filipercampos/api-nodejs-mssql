@@ -1,0 +1,1 @@
+# Contém os modelos dos dados para o response dos recursos da API.

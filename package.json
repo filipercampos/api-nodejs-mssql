@@ -1,0 +1,54 @@
+{
+  "name": "base-openapi",
+  "version": "1.0.0",
+  "description": "API NodeJS",
+  "main": "app",
+  "scripts": {
+    "nodemon": "nodemon server.js --host 0.0.0.0",
+    "build": "npm i & pm2 delete ecosystem.config.yml & pm2 start ecosystem.config.yml",
+    "restart": "pm2 delete ecosystem.config.yml & pm2 start ecosystem.config.yml",
+    "start": "node server.js",
+    "test": "mocha --timeout 50000 --reporter spec ./app/test/*/*.test.js",
+    "rootTest": "mocha --timeout 50000 --reporter spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "keywords": [
+    "api",
+    "rest"
+  ],
+  "author": "Filipe Campos",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "config": "^3.3.6",
+    "cors": "^2.8.5",
+    "dateformat": "^4.5.1",
+    "enum": "^3.0.4",
+    "express": "^4.17.1",
+    "express-openapi-validator": "^4.12.6",
+    "fs": "0.0.1-security",
+    "helmet": "^4.4.1",
+    "js-yaml": "^4.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.21",
+    "memory-cache": "^0.2.0",
+    "moment": "^2.29.1",
+    "mssql": "^6.3.1",
+    "path": "^0.12.7",
+    "swagger-ui-express": "^4.1.6",
+    "tracer": "^1.1.4"
+  },
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "chai-http": "^4.3.0",
+    "chalk": "^4.1.0",
+    "mocha": "^8.3.2",
+    "nodemon": "^2.0.7"
+  },
+  "directories": {
+    "test": "./app/test"
+  }
+}

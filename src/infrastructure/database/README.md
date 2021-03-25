@@ -1,0 +1,1 @@
+# Contém as configurações de conexão e as constantes dos objetos do banco de dados.

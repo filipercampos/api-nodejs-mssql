@@ -1,0 +1,1 @@
+# Contém classes e metodos auxiliares para o processamento de chamadas na API Rest

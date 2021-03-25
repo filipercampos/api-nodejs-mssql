@@ -1,0 +1,7 @@
+apps:
+- name: base-openapi
+  script: "./app.js"
+  instance_var: 'INSTANCE_ID'
+  max_memory_restart: 300M
+  env:
+    NODE_ENV: development

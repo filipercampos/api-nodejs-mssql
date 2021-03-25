@@ -1,0 +1,25 @@
+{
+    "ENV": "production",
+    "HOST": "localhost",
+    "SERVER": {
+        "PORT": 8000
+    },
+    "DB": {
+        "MSSQL": {
+            "HOST": "0.0.0.0",
+            "PORT": 1433,
+            "USER": "user",
+            "PASSWORD": "password",
+            "DATABASE": "database",
+            "CONNECTION_TIMEOUT": 20000,
+            "REQUEST_TIMEOUT": 30000,
+            "POOL": {
+                "MAX": 5,
+                "MIN": 1
+            },
+            "OPTIONS": {
+                "ENCRYPT": false
+            }
+        }
+    }
+}

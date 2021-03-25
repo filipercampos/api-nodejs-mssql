@@ -1,0 +1,86 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "pwa-node",
+            "request": "launch",
+            "name": "API DEV",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "sourceMaps": true,
+            "resolveSourceMapLocations": [
+                "${workspaceFolder}/**",
+                "!**/node_modules/**"
+            ],
+            "program": "${workspaceFolder}\\app.js",
+            "env": {
+                "NODE_ENV": "development"
+            }
+        },
+        {
+            "type": "pwa-node",
+            "request": "launch",
+            "name": "API PRD",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "sourceMaps": true,
+            "resolveSourceMapLocations": [
+                "${workspaceFolder}/**",
+                "!**/node_modules/**"
+            ],
+            "program": "${workspaceFolder}\\app.js",
+            "env": {
+                "NODE_ENV": "production"
+            }
+        },
+        {
+            "name": "Mocha Dev",
+            "type": "pwa-node",
+            "request": "launch",
+            "program": "${workspaceRoot}/node_modules/mocha/bin/_mocha",
+            "stopOnEntry": false,
+            "args": [
+                "--timeout 50000",
+                "--recursive",
+            ], //you can specify paths to specific tests here
+            "cwd": "${workspaceRoot}",
+            "runtimeExecutable": null,
+            "env": {
+                "NODE_ENV": "development"
+            },
+            "outputCapture": "std",
+            "sourceMaps": true,
+            "resolveSourceMapLocations": [
+                "${workspaceFolder}/**",
+                "!**/node_modules/**"
+            ],
+        },
+        {
+            "name": "Mocha PRD",
+            "type": "pwa-node",
+            "request": "launch",
+            "program": "${workspaceRoot}/node_modules/mocha/bin/_mocha",
+            "stopOnEntry": false,
+            "args": [
+                "--timeout 50000",
+                "--recursive",
+            ], //you can specify paths to specific tests here
+            "cwd": "${workspaceRoot}",
+            "runtimeExecutable": null,
+            "env": {
+                "NODE_ENV": "production"
+            },
+            "outputCapture": "std",
+            "sourceMaps": true,
+            "resolveSourceMapLocations": [
+                "${workspaceFolder}/**",
+                "!**/node_modules/**"
+            ],
+        },
+    ]
+}

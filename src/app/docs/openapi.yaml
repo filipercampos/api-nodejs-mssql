@@ -1,0 +1,338 @@
+openapi: 3.0.3
+info:
+  title: API NodeJS
+  description: API Description
+  version: 1.0.0
+  termsOfService: http://localhost
+  contact:
+    name: Filipe Campos
+    email: filipecampos123@hotmail.com
+  license:
+    name: "MIT"
+    url: http://localhost
+servers:
+  - url: http://localhost:{port}/{basePath}
+    description: Development Server
+    variables:
+      port:
+        enum:
+          - "7000"
+        default: "7000"
+      basePath:
+        default: api/v1
+  - url: http://localhost:{port}/{basePath}
+    description: Production Server
+    variables:
+      port:
+        enum:
+          - "7000"
+        default: "7000"
+      basePath:
+        default: api/v1
+tags:
+  - name: Auth
+    description: "Token de acesso"
+  - name: Usuarios
+    description: "Dados de Usuários"
+  - name: Veiculos
+    description: "Dados de Veículos"
+
+paths:
+ # Auth #
+  /auth/access-token:
+    post:
+      tags:
+        - Auth
+      summary: Obtem um token de acesso
+      operationId: accessToken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+        401:
+          description: UNAUTHORIZED
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+        500:
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+
+  /auth/refresh-token:
+    post:
+      tags:
+        - Auth
+      summary: Atualiza o token de acesso
+      operationId: refreshToken
+      parameters:
+        - in: header
+          name: X-API-Key
+          schema:
+            type: string
+          allowReserved: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+        401:
+          description: UNAUTHORIZED
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+        500:
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+  
+  # Usuarios Routes # 
+  /usuarios/{id}:
+    get:
+      tags:
+        - Usuarios
+      summary: Recupera dados do Usuario
+      operationId: getUsuario
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64   
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/usuarioResponse"
+        401:
+          description: UNAUTHORIZED
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+        500:
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+  /usuarios:
+    get:
+      tags:
+        - Usuarios
+      summary: Recupera dados do Usuario
+      operationId: getUsuario
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - in: query
+          name: nomeUsuario
+          required: true
+          allowReserved: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/usuarioResponse"
+        401:
+          description: UNAUTHORIZED
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+        500:
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+
+ # Veiculos Routes #                 
+  /veiculos:
+    get:
+      tags:
+        - Veiculos
+      summary: Recupera dados do Veiculo
+      operationId: getVeiculo
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - in: query
+          name: veiculoIdPlaca
+          schema:
+            type: string
+        - in: query
+          name: modelo
+          schema:
+            type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/veiculoResponse"
+        401:
+          description: UNAUTHORIZED
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+        500:
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+
+  /veiculos/posicao-frota:
+    get:
+      tags:
+        - Veiculos
+      summary: Exibe a Posição da Frota
+      operationId: getPosicaoFrotaFiltros
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - in: query
+          name: statusId
+          schema:
+            type: "array"
+            items:
+              type: "string"
+          allowReserved: true
+          required: false
+        - in: query
+          name: offset
+          schema:
+            type: number
+          required: false
+        - in: query
+          name: limit
+          schema:
+            type: number
+          required: false
+      responses:
+        200:
+          description: SUCCESS
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/veiculoPosicaoFrotaResponse"
+        401:
+          description: UNAUTHORIZED
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+        500:
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+  schemas:
+    errorResponse:
+      type: object
+      properties:
+        data:
+          type: integer
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+            error:
+              type: string  
+
+    usuarioResponse:
+      type: object
+      properties:
+        usuarioId:
+          type: number
+        nomeUsuario:
+          type: string 
+
+    veiculoResponse:
+      type: object
+      properties:
+        veiculoId:
+          type: number
+        placa:
+          type: string
+        anoFabricacaoModelo:
+          type: string
+        cor:
+          type: string
+        modeloId:
+          type: number
+        modelo:
+          type: string 
+
+    veiculoPosicaoFrotaResponse:
+      type: object
+      properties:
+        veiculoId:
+          type: number
+        placa:
+          type: string
+        modelo:
+          type: string
+        grupo:
+          type: string
+        odometroAtual:
+          type: number
+        localOndeSeEncontra:
+          type: string
+        descricaoStatus:
+          type: string
+        descricaoUnidade:
+          type: string
+        equipamento:
+          type: string

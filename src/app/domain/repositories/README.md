@@ -1,0 +1,1 @@
+# Contém arquivos referente a regras de negócios que acessam o banco de dados.
