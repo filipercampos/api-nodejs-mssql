@@ -2,9 +2,9 @@
 module.exports = {
     toModel: (json) => {
         return {
-            "id": json["CodigoUsuario"],
+            "id": json["UsuarioId"],
             "nomeUsuario": json["NomeUsuario"],
-            "cpf": json["CPF"],
+            "email": json["Email"],
         }
     }
 };

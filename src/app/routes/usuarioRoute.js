@@ -6,6 +6,6 @@ const controller = require('../controllers/usuarioController');
 router.get("/usuarios/:id", (req, res) => controller.getById(req, res));
 
 //get users by criteria
-router.get("/usuarios", (req, res) => controller.get(res, req));
+router.get("/usuarios", (req, res) => controller.get(req, res));
 
 module.exports = app => app.use('/api/v1', router);

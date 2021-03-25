@@ -25,5 +25,11 @@
                 "ENCRYPT": false
             }
         }
+    },
+    "API_CONFIG":{
+        "API_MARVEL": {
+            "BASE_URL": "https://gateway.marvel.com/v1/public",
+            "API_KEY": "5073e040eae5d6633110cbbea0b53204&hash=2e4f15ed8bfb4d3ed9a6fe755ccc694e&ts=1"
+        }
     }
 }

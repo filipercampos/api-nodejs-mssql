@@ -17,7 +17,6 @@ module.exports = class BaseApiService {
         try {
             const url = this._buildEndpointUrl(endpoint);
             let result = await axios.get(url, this._configDefaultAxios(headers));
-
             return this._responseData(result);
 
         } catch (err) {
@@ -126,19 +125,8 @@ module.exports = class BaseApiService {
             if (config.has(this._configKey)) {
                 return config.get(this._configKey);
             }
-            throw new Error(`Config API => ${this._configKey} não foi encontrada.`);
         }
-        const key = 'API_CONFIG.API_MARVEL.BASE_URL';
-
-        if (config.has(key)) {
-            const configKey = config.get(key);
-            if (configKey) {
-                return configKey;
-            }
-        }
-
-        throw new Error(`Config API => ${key} não foi encontrada.`);
-
+        throw new Error(`Config API => ${this._configKey} não foi encontrada.`);
     }
 
     /**

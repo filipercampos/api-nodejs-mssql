@@ -19,10 +19,10 @@ module.exports = class UsuarioRepository extends BaseRepository {
 
     try {
 
-      const sqlText = this.getSqlText('../sqls/usuario_get.sql') + ' WHERE CodigoUsuario = @CodigoUsuario'
+      const sqlText = this.getSqlText('../sqls/usuario_get.sql') + ' WHERE CodigoUsuario = @UsuarioID'
       const conn = await this.openConnection();
       const result = await conn.request()
-        .input('CodigoUsuario', mssql.Int, id)
+        .input('UsuarioID', mssql.Int, id)
         .query(sqlText);
 
       if (this.isResultEmpty(result)) {

@@ -6,7 +6,8 @@ const app = require('./src/app/middlewares/middlewares');
 const MssqlFactory = require('./src/infrastructure/database/mssqlFactory');
 
 //check connection and start
-MssqlFactory.checkConnection(start);
+// MssqlFactory.checkConnection(start);
+start();
 
 //start app
 async function start(conn) {

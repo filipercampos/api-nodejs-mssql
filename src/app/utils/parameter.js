@@ -1,6 +1,5 @@
 const util = require('./paramValidator');
 const _ = require('lodash');
-const exceptions = require('../../app/exceptions');
 
 module.exports = class Parameter {
 
@@ -12,8 +11,10 @@ module.exports = class Parameter {
 
     /**
      * Adiciona o parametro e atualiza a url
-     * @name {Nome} 
-     * @value {Valor} 
+     * 
+     * @param {string} name 
+     * @param {any} value 
+     * @param {boolean} validate 
      */
     pushParam(name, value, validate = true) {
 
@@ -90,15 +91,6 @@ module.exports = class Parameter {
             payload[o.name] = o.value;
         }
         return payload;
-    }
-
-    handleDataRange(params) {
-        if (_.isNil(params.dataInicio) ||
-            _.isNil(params.dataFim) ||
-            !_.isString(params.dataInicio.value) ||
-            !_.isString(params.dataFim.value)) {
-            throw new exceptions.BadRequestException('Informe os parametros de data inicio e data fim');
-        }
     }
 
     toUrl() {

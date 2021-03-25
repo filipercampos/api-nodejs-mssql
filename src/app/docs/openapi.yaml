@@ -32,10 +32,10 @@ servers:
 tags:
   - name: Auth
     description: "Token de acesso"
+  - name: Marvel
+    description: "Integração API Marvel"
   - name: Usuarios
     description: "Dados de Usuários"
-  - name: Veiculos
-    description: "Dados de Veículos"
 
 paths:
  # Auth #
@@ -181,23 +181,51 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/errorResponse"
-
- # Veiculos Routes #                 
-  /veiculos:
+  
+  # Marvel Routes # 
+  /marvel/characteres/{id}:
     get:
       tags:
-        - Veiculos
-      summary: Recupera dados do Veiculo
-      operationId: getVeiculo
+        - Marvel
+      summary: Recupera dados de um personagem da marvel pelo id
+      operationId: getCharacteres
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64   
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/apiResponse" 
+        500:
+          description: INTERNAL_SERVER_ERROR
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+  /marvel/characteres:
+    get:
+      tags:
+        - Marvel
+      summary: Recupera dados de personagens da marvel
+      operationId: getCharacterById
       security:
         - ApiKeyAuth: []
       parameters:
         - in: query
-          name: veiculoIdPlaca
-          schema:
-            type: string
-        - in: query
-          name: modelo
+          name: name
+          required: true
+          allowReserved: true
           schema:
             type: string
       responses:
@@ -208,62 +236,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/veiculoResponse"
-        401:
-          description: UNAUTHORIZED
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/errorResponse"
-        500:
-          description: INTERNAL_SERVER_ERROR
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/errorResponse"
-
-  /veiculos/posicao-frota:
-    get:
-      tags:
-        - Veiculos
-      summary: Exibe a Posição da Frota
-      operationId: getPosicaoFrotaFiltros
-      security:
-        - ApiKeyAuth: []
-      parameters:
-        - in: query
-          name: statusId
-          schema:
-            type: "array"
-            items:
-              type: "string"
-          allowReserved: true
-          required: false
-        - in: query
-          name: offset
-          schema:
-            type: number
-          required: false
-        - in: query
-          name: limit
-          schema:
-            type: number
-          required: false
-      responses:
-        200:
-          description: SUCCESS
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/veiculoPosicaoFrotaResponse"
-        401:
-          description: UNAUTHORIZED
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/errorResponse"
+                  $ref: "#/components/schemas/apiResponse" 
         500:
           description: INTERNAL_SERVER_ERROR
           content:
@@ -290,7 +263,11 @@ components:
               type: string
             error:
               type: string  
-
+    apiResponse:
+      type: object
+      properties:
+        data:
+          type: object
     usuarioResponse:
       type: object
       properties:
@@ -298,41 +275,3 @@ components:
           type: number
         nomeUsuario:
           type: string 
-
-    veiculoResponse:
-      type: object
-      properties:
-        veiculoId:
-          type: number
-        placa:
-          type: string
-        anoFabricacaoModelo:
-          type: string
-        cor:
-          type: string
-        modeloId:
-          type: number
-        modelo:
-          type: string 
-
-    veiculoPosicaoFrotaResponse:
-      type: object
-      properties:
-        veiculoId:
-          type: number
-        placa:
-          type: string
-        modelo:
-          type: string
-        grupo:
-          type: string
-        odometroAtual:
-          type: number
-        localOndeSeEncontra:
-          type: string
-        descricaoStatus:
-          type: string
-        descricaoUnidade:
-          type: string
-        equipamento:
-          type: string
