@@ -23,7 +23,7 @@ class AuthController extends BaseController {
         }
     }
     /**
-     * Realiza o login e retorna um token
+     * Renova o token
      */
     async refreshToken(req, res) {
         try {

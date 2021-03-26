@@ -47,6 +47,7 @@
             "args": [
                 "--timeout 50000",
                 "--recursive",
+                "--exit"
             ], //you can specify paths to specific tests here
             "cwd": "${workspaceRoot}",
             "runtimeExecutable": null,

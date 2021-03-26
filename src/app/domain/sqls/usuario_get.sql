@@ -1,5 +1,5 @@
 SELECT
-  CodigoUsuario,
-  NomeUsuario,
-  CPF
+  UsuarioID,
+  Nome,
+  Email 
 FROM Usuario 

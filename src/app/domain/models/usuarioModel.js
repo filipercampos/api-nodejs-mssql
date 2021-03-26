@@ -3,7 +3,7 @@ module.exports = {
     toModel: (json) => {
         return {
             "id": json["UsuarioId"],
-            "nomeUsuario": json["NomeUsuario"],
+            "nome": json["Nome"],
             "email": json["Email"],
         }
     }

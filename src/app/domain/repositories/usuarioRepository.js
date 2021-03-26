@@ -19,7 +19,7 @@ module.exports = class UsuarioRepository extends BaseRepository {
 
     try {
 
-      const sqlText = this.getSqlText('../sqls/usuario_get.sql') + ' WHERE CodigoUsuario = @UsuarioID'
+      const sqlText = this.getSqlText('../sqls/usuario_get.sql') + ' WHERE UsuarioID = @UsuarioID'
       const conn = await this.openConnection();
       const result = await conn.request()
         .input('UsuarioID', mssql.Int, id)
@@ -42,8 +42,7 @@ module.exports = class UsuarioRepository extends BaseRepository {
 
     try {
 
-      const sqlText = this.getSqlText('../sqls/usuario_get.sql')
-        + ` WHERE NomeUsuario LIKE @NomeUsuario `;
+      const sqlText = this.getSqlText('../sqls/usuario_get.sql') + ' WHERE Nome LIKE @Nome ';
       const conn = await this.openConnection();
       const result = await conn.request()
         .input('NomeUsuario', mssql.VarChar(45), params.nomeUsuario + '%')

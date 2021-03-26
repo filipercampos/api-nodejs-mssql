@@ -1,9 +1,11 @@
 const config = require('config');
+const os = require('os');
+const localHost = os.hostname();
 
 const cfg = config.DB.MSSQL;
 
 const MSSQL_CONFIG = {
-    server: cfg.HOST,
+    server: cfg.HOST.includes('local') ? localHost : cfg.HOST,
     database: cfg.DATABASE,
     port: cfg.PORT,
     user: cfg.USER,
@@ -15,7 +17,7 @@ const MSSQL_CONFIG = {
         idleTimeoutMillis: 25000
     },
     options: {
-        encrypt: false
+        enableArithAbort: true
     }
 }
 /**

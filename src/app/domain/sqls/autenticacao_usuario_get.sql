@@ -1,6 +1,6 @@
 SELECT TOP 1
-  CodigoUsuario,
-  NomeUsuario,
+  UsuarioID,
+  Nome,
   Email 
-FROM Usuario WITH (NOLOCK)
-WHERE (Email = @Email)
+FROM Usuario
+WHERE (Email = @Email AND Senha = @Senha)

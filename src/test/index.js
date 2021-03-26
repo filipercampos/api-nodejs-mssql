@@ -20,9 +20,19 @@ server.listen(port, async () => {
 chai.should();
 chai.use(chaiHttp);
 
+function verifyStatusError(res) {
+    const status = res.status;
+    const error = status >= 400 || status <= 500;
+    if (error === true) {
+        console.log(chalk.red('\t' + res.body.data.message));
+    }
+    return error;
+}
+
 module.exports = {
     server,
     chai,
     assert,
-    chalk
+    chalk,
+    verifyStatusError
 }

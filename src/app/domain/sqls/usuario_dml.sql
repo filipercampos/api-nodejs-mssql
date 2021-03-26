@@ -1,0 +1,8 @@
+CREATE TABLE Usuario (
+      UsuarioID INT IDENTITY,
+      Nome VARCHAR(50) NOT NULL,
+      Email VARCHAR(120) NOT NULL,
+      Senha VARCHAR(32) NOT NULL,
+      CONSTRAINT PK_Usuario_UsuarioID PRIMARY KEY CLUSTERED (UsuarioID)
+) ON [PRIMARY]
+GO

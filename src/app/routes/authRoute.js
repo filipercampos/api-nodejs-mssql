@@ -2,6 +2,9 @@
 const router = require('express').Router();
 const controller = require('../controllers/authController');
 
+///Aqui controller não faz referencia ao 'ponteiro' this
+///Então não precisamos especificar o nome da função
+
 //get token
 router.post('/access-token', controller.accessToken);
 
