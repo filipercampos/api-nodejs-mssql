@@ -12,11 +12,10 @@ MssqlFactory.checkConnection(start);
 async function start(conn) {
 
     //create server http/https
-    const server = require('./src/app/middlewares/serverSecurity')(app);
+    const server = require('./src/app/middlewares/serverSecurity')(app, false);
 
     const port = config.get('SERVER').PORT;
     const db = config.get('DB').MSSQL.DATABASE;
-    process.env.NODE_ENV
     const enviroment = config.get('ENV');
 
     server.listen(port, () => {

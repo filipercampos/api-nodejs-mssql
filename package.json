@@ -4,7 +4,7 @@
   "description": "API NodeJS",
   "main": "app",
   "scripts": {
-    "nodemon": "nodemon server.js --host 0.0.0.0",
+    "dev": "nodemon server.js --host 0.0.0.0",
     "build": "npm i & pm2 delete ecosystem.config.yml & pm2 start ecosystem.config.yml",
     "restart": "pm2 delete ecosystem.config.yml & pm2 start ecosystem.config.yml",
     "start": "node server.js",
