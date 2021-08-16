@@ -1,7 +1,7 @@
 
 'use strict';
 const Exception = require('../exceptions/exception');
-const log = require('../../infrastructure/logger/logger');
+const log = require('../../infra/logger/logger');
 const HttpStatusCode = require('./httpStatusCode');
 
 

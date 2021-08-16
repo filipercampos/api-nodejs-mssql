@@ -3,7 +3,7 @@
 const config = require('config');
 const app = require('./src/app/middlewares/middlewares');
 
-const MssqlFactory = require('./src/infrastructure/database/mssqlFactory');
+const MssqlFactory = require('./src/infra/database/mssqlFactory');
 
 //check connection and start
 MssqlFactory.checkConnection(start);

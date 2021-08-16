@@ -1,6 +1,6 @@
 'use strict';
 /**
- * Constantes objectos do banco de dados
+ * Constantes objetos do banco de dados
  * 
  * @author Filipe Campos
  */

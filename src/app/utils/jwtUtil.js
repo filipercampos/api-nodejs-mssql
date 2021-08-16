@@ -2,7 +2,7 @@
 
 const jwt = require('jsonwebtoken');
 const { findLastKey } = require('lodash');
-const cert = require('../../infrastructure/config/auth.json');
+const cert = require('../../infra/config/auth.json');
 
 module.exports = class JwtUtil {
 

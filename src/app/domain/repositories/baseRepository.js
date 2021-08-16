@@ -4,7 +4,7 @@ const mssql = require('mssql');
 const _ = require('lodash');
 const fs = require('fs');
 const path = require('path');
-const Factory = require('../../../infrastructure/database/mssqlFactory');
+const Factory = require('../../../infra/database/mssqlFactory');
 const Exception = require('../../exceptions/exception');
 const array_util = require('../../utils/arrayUtil');
 
