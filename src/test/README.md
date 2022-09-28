@@ -1,1 +1,0 @@
-# Diretório que contém os arquivos para testes unitários.

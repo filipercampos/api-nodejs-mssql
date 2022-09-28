@@ -2,18 +2,23 @@
   "name": "base-openapi",
   "version": "1.0.0",
   "description": "API NodeJS",
-  "main": "app",
+  "main": "src/main/app.js",
   "scripts": {
-    "dev": "nodemon server.js --host 0.0.0.0",
-    "build": "npm i & pm2 delete ecosystem.config.yml & pm2 start ecosystem.config.yml",
-    "restart": "pm2 delete ecosystem.config.yml & pm2 start ecosystem.config.yml",
-    "start": "node server.js",
-    "test": "mocha --timeout 50000 --reporter spec ./app/test/*/*.test.js",
-    "rootTest": "mocha --timeout 50000 --reporter spec"
+    "start": "node src/main",
+    "dev": "nodemon src/main",
+    "debug": "nodemon src/main --debug",
+    "test": "mocha --timeout 99999 --reporter spec ./test/**/*.test.js --recursive --exit",
+    "test:e2e": "mocha --timeout 99999 --reporter spec ./test/e2e/**/*.test.js --recursive --exit",
+    "test:u": "mocha --timeout 99999 --reporter spec ./test/unit/**/*.test.js --recursive --exit",
+    "test:i": "mocha ./test/test.js --exit",
+    "deploy": "npm i & pm2 delete ecosystem.config.yaml && pm2 start ecosystem.config.yaml",
+    "restart": "pm2 delete ecosystem.config.yaml && pm2 start ecosystem.config.yaml",
+    "stop": "pm2 delete ecosystem.config.yaml",
+    "list": "pm2 list --sort id"
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://infosistemasprojetos.visualstudio.com/InfoSistemas/_git/api-locavia-mobile"
   },
   "keywords": [
     "api",
@@ -22,33 +27,36 @@
   "author": "Filipe Campos",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.21.1",
-    "config": "^3.3.6",
+    "axios": "^0.27.2",
+    "bcryptjs": "^2.4.3",
+    "config": "^3.3.8",
     "cors": "^2.8.5",
-    "dateformat": "^4.5.1",
+    "crypto-js": "^4.1.1",
+    "date-fns": "^2.29.3",
+    "dateformat": "^5.0.3",
     "enum": "^3.0.4",
-    "express": "^4.17.1",
-    "express-openapi-validator": "^4.12.6",
+    "express": "^4.18.1",
+    "express-openapi-validator": "^4.13.8",
+    "express-validator": "^6.14.2",
     "fs": "0.0.1-security",
-    "helmet": "^4.4.1",
-    "js-yaml": "^4.0.0",
+    "helmet": "^6.0.0",
+    "js-yaml": "^4.1.0",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.21",
     "memory-cache": "^0.2.0",
-    "moment": "^2.29.1",
-    "mssql": "^6.3.1",
+    "moment": "^2.29.4",
+    "mssql": "^9.0.1",
     "path": "^0.12.7",
-    "swagger-ui-express": "^4.1.6",
-    "tracer": "^1.1.4"
+    "swagger-ui-express": "^4.5.0",
+    "tracer": "^1.1.6"
   },
   "devDependencies": {
-    "chai": "^4.3.4",
+    "chai": "^4.3.6",
     "chai-http": "^4.3.0",
-    "chalk": "^4.1.0",
-    "mocha": "^8.3.2",
-    "nodemon": "^2.0.7"
+    "chalk": "^4.1.2",
+    "mocha": "^10.0.0"
   },
   "directories": {
-    "test": "./app/test"
+    "test": "test"
   }
 }

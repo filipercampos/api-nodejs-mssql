@@ -1,8 +1,12 @@
 {
     "ENV": "production",
-    "HOST": "localhost",
     "SERVER": {
+        "HOST": "localhost:8000",
         "PORT": 8000
+    },
+    "TEST": {
+        "HOST": "http://localhost",
+        "PORT": 8001
     },
     "DB": {
         "MSSQL": {
@@ -22,10 +26,10 @@
             }
         }
     },
-    "API_CONFIG":{
+    "API_CONFIG": {
         "API_MARVEL": {
             "BASE_URL": "https://gateway.marvel.com/v1/public",
-            "API_KEY": "YOUR_API_KEY&hash=2e4f15ed8bfb4d3ed9a6fe755ccc694e&ts=1"
+            "API_KEY": "YOUR_API_KEY"
         }
     }
 }

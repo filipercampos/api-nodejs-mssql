@@ -1,0 +1,347 @@
+openapi: 3.0.3
+info:
+  title: API NodeJS MSSQL
+  description: API NodeJS MSSQL
+  version: 1.0.0
+  termsOfService: http://localhost
+  contact:
+    name: Your Name
+    email: mail@mail.com
+  license:
+    name: 'MIT'
+    url: http://localhost
+servers:
+  - url: $api_server_url
+
+# order by A-Z
+tags:
+  - name: Auth
+    description: 'Authentication'
+  - name: Marvel
+    description: 'API Marvel Integration'
+  - name: Users
+    description: 'User data'
+
+paths:
+  # Auth #
+  /auth/access-token:
+    post:
+      tags:
+        - Auth
+      summary: Get access token
+      operationId: accessToken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+        required: true
+      responses:
+        200:
+          $ref: '#/components/schemas/authSchema'
+        400:
+          $ref: '#/components/responses/badRequestResponse'
+        401:
+          $ref: '#/components/responses/unauthorizedResponse'
+        500:
+          $ref: '#/components/responses/internalServerErrorResponse'
+  /auth/refresh-token:
+    post:
+      tags:
+        - Auth
+      summary: Refresh access token
+      operationId: refreshToken
+      security:
+        - ApiKeyAuth: []
+      responses:
+        200:
+          $ref: '#/components/schemas/authSchema'
+        400:
+          $ref: '#/components/responses/badRequestResponse'
+        401:
+          $ref: '#/components/responses/unauthorizedResponse'
+        500:
+          $ref: '#/components/responses/internalServerErrorResponse'
+
+  # Users Routes #
+  /users/{id}:
+    get:
+      tags:
+        - Users
+      summary: Get user data by id
+      operationId: getUserById
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          $ref: '#/components/schemas/userSchema'
+        400:
+          $ref: '#/components/responses/badRequestResponse'
+        401:
+          $ref: '#/components/responses/unauthorizedResponse'
+        500:
+          $ref: '#/components/responses/internalServerErrorResponse'
+    patch:
+      tags:
+        - Users
+      summary: Update user data
+      operationId: patchUser
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+      requestBody:
+        $ref: '#/components/requestBodies/patchUserBody'
+      responses:
+        200:
+          $ref: '#/components/responses/apiResponse'
+        400:
+          $ref: '#/components/responses/badRequestResponse'
+        401:
+          $ref: '#/components/responses/unauthorizedResponse'
+        500:
+          $ref: '#/components/responses/internalServerErrorResponse'
+  /users:
+    get:
+      tags:
+        - Users
+      summary: Get data users
+      operationId: getUsers
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - in: query
+          name: name
+          required: true
+          allowReserved: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/userSchema'
+        400:
+          $ref: '#/components/responses/badRequestResponse'
+        401:
+          $ref: '#/components/responses/unauthorizedResponse'
+        500:
+          $ref: '#/components/responses/internalServerErrorResponse'
+    post:
+      tags:
+        - Users
+      summary: Post user
+      operationId: postUser
+      security:
+        - ApiKeyAuth: []
+      requestBody:
+        $ref: '#/components/requestBodies/postUserBody'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/responses/postResponse'
+        400:
+          $ref: '#/components/responses/badRequestResponse'
+        401:
+          $ref: '#/components/responses/unauthorizedResponse'
+        500:
+          $ref: '#/components/responses/internalServerErrorResponse'
+
+  # Health Route #
+  /health:
+    get:
+      tags:
+        - Health
+      summary: Health Check
+      operationId: getHealth
+      responses:
+        200:
+          $ref: '#/components/responses/apiResponse'
+        500:
+          $ref: '#/components/schemas/errorSchema'
+
+  # Marvel Routes #
+  /marvel/characteres/{id}:
+    get:
+      tags:
+        - Marvel
+      summary: Get chacracter by id
+      operationId: getCharacteres
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          $ref: '#/components/responses/apiResponse'
+        400:
+          $ref: '#/components/responses/badRequestResponse'
+        401:
+          $ref: '#/components/responses/unauthorizedResponse'
+        500:
+          $ref: '#/components/responses/internalServerErrorResponse'
+  /marvel/characteres:
+    get:
+      tags:
+        - Marvel
+      summary: Get chacracteres data
+      operationId: getCharacterById
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - in: query
+          name: name
+          required: true
+          allowReserved: true
+          schema:
+            type: string
+      responses:
+        200:
+          $ref: '#/components/responses/apiResponse'
+        400:
+          $ref: '#/components/responses/badRequestResponse'
+        401:
+          $ref: '#/components/responses/unauthorizedResponse'
+        500:
+          $ref: '#/components/responses/internalServerErrorResponse'
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+  responses:
+    apiResponse:
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+    badRequestResponse:
+      description: BAD_REQUEST
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/errorSchema'
+    unauthorizedResponse:
+      description: UNAUTHORIZED
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/errorSchema'
+    internalServerErrorResponse:
+      description: INTERNAL_SERVER_ERROR
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/errorSchema'
+    conflictResponse:
+      description: CONFLICT
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/errorSchema'
+    postResponse:
+      description: CREATED
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+              message:
+                type: string
+  schemas:
+    errorSchema:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+        error:
+          type: string
+    authSchema:
+      type: object
+      properties:
+        token:
+          type: string
+    apiSchema:
+      type: object
+      properties:
+        data:
+          type: object
+    userSchema:
+      type: object
+      properties:
+        id:
+          type: number
+        nickName:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+  requestBodies:
+    postUserBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              nickName:
+                type: string
+              firstName:
+                type: string
+              lastName:
+                type: string
+              email:
+                type: string
+              password:
+                type: string
+    patchUserBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              firstName:
+                type: string
+              lastName:
+                type: string

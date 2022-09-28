@@ -1,7 +1,7 @@
 {
     "ENV": "development",
-    "HOST": "localhost",
     "SERVER": {
+        "HOST": "localhost:7000",
         "PORT": 7000
     },
     "TEST": {
@@ -10,7 +10,7 @@
     },
     "DB": {
         "MSSQL": {
-            "HOST": "local",
+            "HOST": "0.0.0.0",
             "PORT": 1433,
             "USER": "user",
             "PASSWORD": "password",
@@ -26,10 +26,10 @@
             }
         }
     },
-    "API_CONFIG":{
+    "API_CONFIG": {
         "API_MARVEL": {
             "BASE_URL": "https://gateway.marvel.com/v1/public",
-            "API_KEY": "YOUR_API_KEY&hash=2e4f15ed8bfb4d3ed9a6fe755ccc694e&ts=1"
+            "API_KEY": "YOUR_API_KEY"
         }
     }
 }

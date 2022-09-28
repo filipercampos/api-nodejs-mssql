@@ -1,11 +1,11 @@
 'use strict';
 /**
- * Constantes objetos do banco de dados
- * 
+ * Constantes database objects
+ *
  * @author Filipe Campos
  */
 module.exports.Programmability = {
-    //region - Name
-    // spNameGet: 'spName',
-    //end region
-}
+  //region - Name
+  // spNameGet: 'spName',
+  //end region
+};

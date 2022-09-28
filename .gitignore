@@ -102,7 +102,5 @@ dist
 
 # TernJS port file
 .tern-port
-ignore/development.json
-ignore/production.json
-package-lock.json
 config/local.json
+src/app/docs/swagger-docs.yaml

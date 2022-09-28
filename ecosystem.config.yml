@@ -1,7 +1,9 @@
 apps:
-- name: base-openapi
-  script: "./app.js"
-  instance_var: 'INSTANCE_ID'
-  max_memory_restart: 300M
-  env:
-    NODE_ENV: development
+  - name: base-open-api-mssql
+    script: "./src/main.js"
+    instance_var: "INSTANCE_ID"
+    max_memory_restart: 100M
+    exec_mode: "fork"
+    instances: 1
+    env:
+      NODE_ENV: production
